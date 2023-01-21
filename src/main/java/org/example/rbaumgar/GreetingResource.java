@@ -21,7 +21,7 @@ public class GreetingResource {
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     @Counted(name = "greetings", description = "How many greetings we've given.", absolute = true)
-        public String hello() {
+    public String hello() {
         return "Hello from monitor-demo-app " + HOSTNAME;
     }
 
@@ -45,7 +45,7 @@ public class GreetingResource {
 
     @Path("alert-hook")
     @Consumes(MediaType.APPLICATION_JSON)
-    @Counted(name = "alerts", description = "How many alters we've received.", absolute = true)@POST
+    @Counted(name = "alerts", description = "How many alerts we've received.", absolute = true)@POST
 	public String receiveAlertHook(String request) {
 		Log.info("Alert received: " + request);
         return "OK";
