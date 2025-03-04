@@ -1,0 +1,16 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: monitor-demo-svc
+  namespace: mytest
+  annotations:
+    prometheus.io/scheme: https
+    prometheus.io/scrape: 'true'
+spec:
+  ports:
+    - name: http
+      protocol: TCP
+      port: 8080
+      targetPort: 80
+  selector:
+    app: monitor-demo

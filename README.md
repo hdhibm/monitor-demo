@@ -128,10 +128,15 @@ So the number of API calls to *hello* is **greetings**.
 $ mvn clean package -DskipTests
 ...
 $ podman build -f src/main/docker/Dockerfile.jvm -t quarkus/monitor-demo-app-jvm .
-exec java -Dquarkus.http.host=0.0.0.0 -Djava.util.logging.manager=org.jboss.logmanager.LogManager -javaagent:/opt/agent-bond/agent-bond.jar=jmx_exporter{{9779:/opt/agent-bond/jmx_exporter_config.yml}} -XX:+UseParallelGC -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -XX:MinHeapFreeRatio=20 -XX:MaxHeapFreeRatio=40 -XX:+ExitOnOutOfMemoryError -cp . -jar /deployments/app.jar
-2020-04-17 08:15:33,649 INFO  [io.quarkus] (main) monitor-demo-app 1.0-SNAPSHOT (running on Quarkus 1.0.0.CR1) started in 0.593s. Listening on: http://0.0.0.0:8080
-2020-04-17 08:15:33,667 INFO  [io.quarkus] (main) Profile prod activated. 
-2020-04-17 08:15:33,667 INFO  [io.quarkus] (main) Installed features: [cdi, resteasy, smallrye-metrics]
+$ podman run -p 8080:8080 quarkus/monitor-demo-app-jvm
+INFO exec  java -XX:+UseParallelGC -XX:MinHeapFreeRatio=10 -XX:MaxHeapFreeRatio=20 -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -XX:+ExitOnOutOfMemoryError -cp "." -jar /deployments/quarkus-run.jar
+__  ____  __  _____   ___  __ ____  ______
+ --/ __ \/ / / / _ | / _ \/ //_/ / / / __/
+ -/ /_/ / /_/ / __ |/ , _/ ,< / /_/ /\ \
+--\___\_\____/_/ |_/_/|_/_/|_|\____/___/
+2023-01-26 18:28:59,878 INFO  [io.quarkus] (main) monitor-demo-app 1.1-SNAPSHOT on JVM (powered by Quarkus 2.6.2.Final) started in 0.992s. Listening on: http://0.0.0.0:8080
+2023-01-26 18:28:59,895 INFO  [io.quarkus] (main) Profile prod activated.
+2023-01-26 18:28:59,895 INFO  [io.quarkus] (main) Installed features: [cdi, kubernetes, resteasy, smallrye-context-propagation, smallrye-metrics, vertx]
 ```
 
 You can also use *docker*.

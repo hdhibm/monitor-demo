@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: monitor-demo
+    app.kubernetes.io/component: monitor-demo
+    app.kubernetes.io/instance: monitor-demo
+  name: monitor-demo
+  namespace: mytest
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: monitor-demo
+  template:
+    metadata:
+      annotations:
+        prometheus.io/path: /metrics
+        prometheus.io/port: "8080"
+        prometheus.io/scrape: "true"
+      labels:
+        app: monitor-demo
+    spec:
+      containers:
+      - name: monitor-demo
+        image: image-registry.openshift-image-registry.svc:5000/mytest/monitor-demo@sha256:16ceb2ac8de604572434f94f8c7e1cffb72e996e36cec680e8dca604aaf8f045
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8080
+          protocol: TCP
+        resources: {}
+
